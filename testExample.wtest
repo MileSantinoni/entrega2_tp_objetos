@@ -1,0 +1,109 @@
+import example.*
+
+
+describe "test para Gandalf y su poder"{
+
+    test "Gandalf con todas sus armas"{
+        assert.equals(2800,gandalf.poder())
+    }
+
+    test "Gandalf sin armas y 80 de vida"{
+        gandalf.vida(80)
+        gandalf.armas(#{})
+
+     assert.equals(1200, gandalf.poder())
+    }
+
+    test "Gandalf con 5 de vida y su baculo"{
+        gandalf.vida(5)
+        gandalf.armas(#{baculo})
+
+        assert.equals(2300,gandalf.poder())
+    }
+
+    test "Gandalf con 30 de vida,su baculo y su espada pero version enana"{
+        gandalf.vida(30)
+        const espadaOrigenEnano = espadaGlamdring
+        espadaOrigenEnano.origen(enano)
+        gandalf.armas(#{baculo,espadaOrigenEnano})
+
+        assert.equals(1650,gandalf.poder())
+    }
+
+}
+
+describe "test para recorriendo Tierra media" {
+
+  test "Gandalf full vida y con armas puede atravesar Lebennin" {
+    assert.equals(true, lebennin.puedePasar(gandalf))
+   }
+
+  test "Gandalf 11 de vida y sin armas puede atravesar Lebennin" {
+    gandalf.vida(11)
+    gandalf.armas(#{})
+
+    assert.equals(false, lebennin.puedePasar(gandalf))
+   }
+
+   test "Gandalf 11 de vida y sin armas puede atravesar Minas Tirith" {
+    gandalf.vida(11)
+    gandalf.armas(#{})
+
+    assert.equals(false, minasTirith.puedePasar(gandalf))
+   }
+
+   test "Gandalf full vida y con sus armas, puede atravesar el camino compuesto por Lebennin y Minas Tirith" {
+    assert.equals(true, gondor.puedePasar(gandalf))
+   }
+
+   test "Gandalf full vida y con sus armas, atraviesa el camino compuesto por Lebennin y Minas Tirith" {
+    assert.equals(90, gondor.atravesar(gandalf))
+   }
+
+ }
+
+describe "test para tom" {
+
+  test "tom puede atravesae Lebennin" {
+    assert.equals(true, lebennin.puedePasar(tom))
+   }
+
+
+ test "tom no sufre efectos al pasar por Gondor (su vida queda igual)" {
+    assert.equals(100, gondor.atravesar(tom))
+   }
+
+ }
+
+ describe "test de Arsenal" {
+
+  const espada1 = new Espada(origen = enano, multiplicador = 15)
+  const daga1 = new Daga(origen = enano, multiplicador = 15)
+  const hacha1 = new Hacha(largoDelMango = 50, pesoDeLaHoja = 5)
+  const arco1 = new Arco(largo = 110)
+
+
+  test "Espada con multiplicador de 15 y de origen Enano" {
+    assert.equals(300, espada1.poder())
+   }
+
+
+ test " Daga con multiplicador de 15 y origen Enano)" {
+    assert.equals(150, daga1.poder())
+   }
+
+  test "Hacha con mango de 50 cm, con una hoja de 5kg.)" {
+    assert.equals(250, hacha1.poder())
+   }
+
+   test "Arco con longitud de 110cm)" {
+    assert.equals(440, arco1.poder())
+   }
+
+   test "Modificar la tensión del arco a 35kg. Mismo arco que antes…)" {
+    arco1.tension(35)
+    assert.equals(385, arco1.poder())
+   }
+
+
+ }
